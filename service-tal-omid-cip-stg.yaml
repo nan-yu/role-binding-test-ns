@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    client: tal-omid-stg
+    name: tal-omid-stg
+    entity: talend-omid-api
+    tfo-bill-aimi_id: "196257"
+    tfo-bill-account: talend
+  name: tal-omid-cip-stg
+  namespace: ns-talend
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 8065
+  selector:
+    client: tal-omid-stg
+    name: tal-omid-stg    
+  sessionAffinity: None
+  type: ClusterIP
