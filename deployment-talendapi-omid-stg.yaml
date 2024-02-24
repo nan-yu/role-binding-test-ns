@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    client: tal-omid-stg
+    name: tal-omid-stg
+    entity: talend-omid-api
+    tfo-bill-aimi_id: "196257"
+    tfo-bill-account: talend
+  name: talendapi-omid-stg
+  namespace: ns-talend
+spec:
+  # replicas: 1
+  selector:
+    matchLabels:
+      client: tal-omid-stg
+      name: tal-omid-stg      
+  template:
+    metadata:
+      labels:
+        client: tal-omid-stg
+        name: tal-omid-stg
+        tfo-bill-aimi_id: "196257"
+        tfo-bill-account: talend
+    spec:
+      containers:
+      - env:
+        name: talendapi-omid-stg
+        image: "us-central1-docker.pkg.dev/tfo-us-dev-scbpo-techarch/talend-repo/talend-omid-api-sept07:v5"
+        ports:
+        - containerPort: 8065
+        resources:
+          limits:
+            cpu: 1
+            memory: 1.5Gi          
+          requests:
+            cpu: 200m
+            memory: 768Mi
+
+      imagePullSecrets:
+      - name: gcrsec
+      # imagePullSecrets:
+      # - name: gcrsec 
